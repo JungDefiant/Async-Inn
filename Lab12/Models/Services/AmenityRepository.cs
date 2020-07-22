@@ -4,21 +4,20 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Lab12.Models.Services
 {
-    public class HotelRepository : IHotel
+    public class AmenityRepository : IAmenity
     {
         private AsyncInnDbContext _context;
-        
-        public HotelRepository(AsyncInnDbContext context)
+
+        public AmenityRepository(AsyncInnDbContext context)
         {
             _context = context;
         }
-        
-        public async Task<Hotel> Create(Hotel hotel)
+
+        public async Task<Amenity> Create(Amenity hotel)
         {
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
@@ -27,29 +26,29 @@ namespace Lab12.Models.Services
 
         public async Task Delete(int id)
         {
-            Hotel hotel = await GetHotel(id);
+            Amenity hotel = await GetAmenity(id);
 
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Hotel> GetHotel(int id)
+        public async Task<Amenity> GetAmenity(int id)
         {
-            Hotel hotel = await _context.Hotels.FindAsync(id);
-            return hotel;
+            Amenity amenity = await _context.Amenities.FindAsync(id);
+            return amenity;
         }
 
-        public async Task<List<Hotel>> GetHotels()
+        public async Task<List<Amenity>> GetAmenities()
         {
-            var hotels = await _context.Hotels.ToListAsync();
-            return hotels;
+            var amenities = await _context.Amenities.ToListAsync();
+            return amenities;
         }
 
-        public async Task<Hotel> Update(Hotel hotel)
+        public async Task<Amenity> Update(Amenity amenity)
         {
-            _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(amenity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
-            return hotel;
+            return amenity;
         }
     }
 }

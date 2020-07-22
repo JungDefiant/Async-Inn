@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
+using Lab12.Models;
+using Lab12.Models.Services;
+using Lab12.Models.Interfaces;
 
 namespace Lab12
 {
@@ -33,6 +36,10 @@ namespace Lab12
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddTransient<IHotel, HotelRepository>();
+            services.AddTransient<ILayout, LayoutRepository>();
+            services.AddTransient<IAmenity, AmenityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

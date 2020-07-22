@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12.Data;
 using Lab12.Models;
+using Lab12.Models.Interfaces;
 
 namespace Lab12.Controllers
 {
@@ -14,97 +15,60 @@ namespace Lab12.Controllers
     [ApiController]
     public class RoomLayoutsController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly ILayout _layout;
 
-        public RoomLayoutsController(AsyncInnDbContext context)
+        public RoomLayoutsController(ILayout layout)
         {
-            _context = context;
+            _layout = layout;
         }
 
         // GET: api/RoomLayouts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomLayout>>> GetRoomLayouts()
+        public async Task<ActionResult<IEnumerable<RoomLayout>>> GetLayouts()
         {
-            return await _context.RoomLayouts.ToListAsync();
+            return await _layout.GetLayouts();
         }
 
         // GET: api/RoomLayouts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoomLayout>> GetRoomLayout(int id)
+        public async Task<ActionResult<RoomLayout>> GetLayout(int id)
         {
-            var roomLayout = await _context.RoomLayouts.FindAsync(id);
-
-            if (roomLayout == null)
-            {
-                return NotFound();
-            }
-
-            return roomLayout;
+            var layout = await _layout.GetLayout(id);
+            return layout;
         }
 
         // PUT: api/RoomLayouts/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoomLayout(int id, RoomLayout roomLayout)
+        public async Task<IActionResult> PutLayout(int id, RoomLayout layout)
         {
-            if (id != roomLayout.ID)
+            if (id != layout.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(roomLayout).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomLayoutExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var updateLayout = await _layout.Update(layout);
+            return Ok(updateLayout);
         }
 
         // POST: api/RoomLayouts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<RoomLayout>> PostRoomLayout(RoomLayout roomLayout)
+        public async Task<ActionResult<RoomLayout>> PostLayout(RoomLayout layout)
         {
-            _context.RoomLayouts.Add(roomLayout);
-            await _context.SaveChangesAsync();
+            await _layout.Create(layout);
 
-            return CreatedAtAction("GetRoomLayout", new { id = roomLayout.ID }, roomLayout);
+            return CreatedAtAction("GetLayout", new { id = layout.ID }, layout);
         }
 
         // DELETE: api/RoomLayouts/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RoomLayout>> DeleteRoomLayout(int id)
+        public async Task<ActionResult<RoomLayout>> DeleteLayout(int id)
         {
-            var roomLayout = await _context.RoomLayouts.FindAsync(id);
-            if (roomLayout == null)
-            {
-                return NotFound();
-            }
-
-            _context.RoomLayouts.Remove(roomLayout);
-            await _context.SaveChangesAsync();
-
-            return roomLayout;
-        }
-
-        private bool RoomLayoutExists(int id)
-        {
-            return _context.RoomLayouts.Any(e => e.ID == id);
+            await _layout.Delete(id);
+            return NoContent();
         }
     }
 }

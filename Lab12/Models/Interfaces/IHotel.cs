@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Lab12.Models.Interfaces
 {
-    interface IHotel
+    public interface IHotel
     {
         Task<Hotel> Create(Hotel hotel);
 
@@ -13,7 +13,7 @@ namespace Lab12.Models.Interfaces
 
         Task<Hotel> GetHotel(int id);
 
-        Task<Hotel> Update(int id, Hotel hotel);
+        Task<Hotel> Update(Hotel hotel);
 
         Task Delete(int id);
     }
