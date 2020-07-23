@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lab12.Data;
 using Lab12.Models;
+using Lab12.Models.Interfaces;
 
 namespace Lab12.Controllers
 {
@@ -14,31 +15,25 @@ namespace Lab12.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        private readonly IHotel _hotel;
 
-        public HotelsController(AsyncInnDbContext context)
+        public HotelsController(IHotel hotel)
         {
-            _context = context;
+            _hotel = hotel;
         }
 
         // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-            return await _context.Hotels.ToListAsync();
+            return await _hotel.GetHotels();
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
-
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
+            var hotel = await _hotel.GetHotel(id);
             return hotel;
         }
 
@@ -53,25 +48,8 @@ namespace Lab12.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            var updateHotel = await _hotel.Update(hotel);
+            return Ok(updateHotel);
         }
 
         // POST: api/Hotels
@@ -80,8 +58,7 @@ namespace Lab12.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-            _context.Hotels.Add(hotel);
-            await _context.SaveChangesAsync();
+            await _hotel.Create(hotel);
 
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
@@ -90,21 +67,8 @@ namespace Lab12.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hotel>> DeleteHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            _context.Hotels.Remove(hotel);
-            await _context.SaveChangesAsync();
-
-            return hotel;
-        }
-
-        private bool HotelExists(int id)
-        {
-            return _context.Hotels.Any(e => e.ID == id);
+            await _hotel.Delete(id);
+            return NoContent();
         }
     }
 }
