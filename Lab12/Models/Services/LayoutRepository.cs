@@ -17,11 +17,6 @@ namespace AsyncInn.Models.Services
             _context = context;
         }
 
-        public Task AddAmenityToRoom(int layoutID, int amenityID)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<RoomLayout> Create(RoomLayout layout)
         {
             _context.Entry(layout).State = Microsoft.EntityFrameworkCore.EntityState.Added;
@@ -47,11 +42,6 @@ namespace AsyncInn.Models.Services
         {
             var layouts = await _context.RoomLayouts.ToListAsync();
             return layouts;
-        }
-
-        public Task RemoveAmenityToRoom(int layoutID, int amenityID)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<RoomLayout> Update(RoomLayout layout)
