@@ -3,7 +3,7 @@
 
 ## Lab 11
 **Collaborators:** Nicco Ryan, Bryant Davis
-**Date:** July 20, 2020
+<br />**Date:** July 20, 2020
 
 ## Lab 12
 **Date:** July 21, 2020
