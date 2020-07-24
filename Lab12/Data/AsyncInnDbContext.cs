@@ -1,11 +1,11 @@
-﻿using Lab12.Models;
+﻿using AsyncInn.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lab12.Data
+namespace AsyncInn.Data
 {
     public class AsyncInnDbContext : DbContext
     {
@@ -33,5 +33,6 @@ namespace Lab12.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<RoomLayout> RoomLayouts { get; set; }
         public DbSet<Amenity> Amenities { get; set; }
+        public DbSet<HotelRoom> Rooms { get; set; }
     }
 }

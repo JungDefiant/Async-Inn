@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lab12.Models.Interfaces
+namespace AsyncInn.Models.Interfaces
 {
     public interface ILayout
     {
@@ -16,5 +16,9 @@ namespace Lab12.Models.Interfaces
         Task<RoomLayout> Update(RoomLayout layout);
 
         Task Delete(int id);
+
+        Task AddAmenityToRoom(int layoutID, int amenityID);
+
+        Task RemoveAmenityToRoom(int layoutID, int amenityID);
     }
 }

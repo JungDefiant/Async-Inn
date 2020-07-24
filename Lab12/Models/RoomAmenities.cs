@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace AsyncInn.Models
 {
-    public class Amenity
+    public class RoomAmenities
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int LayoutID { get; set; }
+        public int AmenityID { get; set; }
     }
 }

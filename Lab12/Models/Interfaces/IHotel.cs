@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lab12.Models.Interfaces
+namespace AsyncInn.Models.Interfaces
 {
     public interface IHotel
     {
@@ -16,5 +16,9 @@ namespace Lab12.Models.Interfaces
         Task<Hotel> Update(Hotel hotel);
 
         Task Delete(int id);
+
+        Task AddRoom(int hotelID, int layoutID);
+
+        Task RemoveRoom(int hotelID, int layoutID);
     }
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Lab12.Data;
-using Lab12.Models;
-using Lab12.Models.Interfaces;
+using AsyncInn.Data;
+using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
-namespace Lab12.Controllers
+namespace AsyncInn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -56,6 +56,7 @@ namespace Lab12.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Route("{layoutId}/Amenity/{amenityId}")]
         public async Task<ActionResult<RoomLayout>> PostLayout(RoomLayout layout)
         {
             await _layout.Create(layout);
@@ -65,6 +66,7 @@ namespace Lab12.Controllers
 
         // DELETE: api/RoomLayouts/5
         [HttpDelete("{id}")]
+        [Route("{layoutId}/Amenity/{amenityId}")]
         public async Task<ActionResult<RoomLayout>> DeleteLayout(int id)
         {
             await _layout.Delete(id);

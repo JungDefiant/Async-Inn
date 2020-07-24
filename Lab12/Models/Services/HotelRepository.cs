@@ -1,5 +1,6 @@
-﻿using Lab12.Data;
-using Lab12.Models.Interfaces;
+﻿using AsyncInn.Data;
+using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Lab12.Models.Services
+namespace AsyncInn.Models.Services
 {
     public class HotelRepository : IHotel
     {
@@ -17,7 +18,19 @@ namespace Lab12.Models.Services
         {
             _context = context;
         }
-        
+
+        public async Task AddRoom(int hotelID, int layoutID)
+        {
+            HotelRoom room = new HotelRoom()
+            {
+                HotelID = hotelID,
+                LayoutID = layoutID
+            };
+
+            _context.Entry(room).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Hotel> Create(Hotel hotel)
         {
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Added;
@@ -43,6 +56,11 @@ namespace Lab12.Models.Services
         {
             var hotels = await _context.Hotels.ToListAsync();
             return hotels;
+        }
+
+        public Task RemoveRoom(int hotelID, int layoutID)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Hotel> Update(Hotel hotel)

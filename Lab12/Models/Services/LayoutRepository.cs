@@ -1,12 +1,12 @@
-﻿using Lab12.Models.Interfaces;
+﻿using AsyncInn.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lab12.Data;
+using AsyncInn.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lab12.Models.Services
+namespace AsyncInn.Models.Services
 {
     public class LayoutRepository : ILayout
     {
@@ -15,6 +15,11 @@ namespace Lab12.Models.Services
         public LayoutRepository(AsyncInnDbContext context)
         {
             _context = context;
+        }
+
+        public Task AddAmenityToRoom(int layoutID, int amenityID)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<RoomLayout> Create(RoomLayout layout)
@@ -42,6 +47,11 @@ namespace Lab12.Models.Services
         {
             var layouts = await _context.RoomLayouts.ToListAsync();
             return layouts;
+        }
+
+        public Task RemoveAmenityToRoom(int layoutID, int amenityID)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<RoomLayout> Update(RoomLayout layout)

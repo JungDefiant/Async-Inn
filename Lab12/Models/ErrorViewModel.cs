@@ -1,6 +1,6 @@
 using System;
 
-namespace Lab12.Models
+namespace AsyncInn.Models
 {
     public class ErrorViewModel
     {

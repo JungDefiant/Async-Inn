@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Lab12.Data;
-using Lab12.Models;
-using Lab12.Models.Interfaces;
+using AsyncInn.Data;
+using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
-namespace Lab12.Controllers
+namespace AsyncInn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
