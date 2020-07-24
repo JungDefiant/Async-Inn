@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <StartupObject>Lab12.Program</StartupObject>
+    <StartupObject>AsyncInn.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

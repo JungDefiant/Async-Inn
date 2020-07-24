@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Lab12.Models;
+using AsyncInn.Models;
 
-namespace Lab12.Controllers
+namespace AsyncInn.Controllers
 {
     public class HomeController : Controller
     {

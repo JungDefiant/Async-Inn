@@ -1,12 +1,12 @@
-﻿using Lab12.Data;
-using Lab12.Models.Interfaces;
+﻿using AsyncInn.Data;
+using AsyncInn.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lab12.Models.Services
+namespace AsyncInn.Models.Services
 {
     public class AmenityRepository : IAmenity
     {

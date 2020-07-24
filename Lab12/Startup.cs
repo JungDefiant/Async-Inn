@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lab12.Data;
+using AsyncInn.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,11 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore;
-using Lab12.Models;
-using Lab12.Models.Services;
-using Lab12.Models.Interfaces;
+using AsyncInn.Models;
+using AsyncInn.Models.Services;
+using AsyncInn.Models.Interfaces;
 
-namespace Lab12
+namespace AsyncInn
 {
     public class Startup
     {
