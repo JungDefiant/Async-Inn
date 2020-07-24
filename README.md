@@ -2,14 +2,14 @@
 **Author:** Bade Habib
 
 ## Lab 11
-<br />**Collaborators:** Nicco Ryan, Bryant Davis
-<br /><br />**Date:** July 20, 2020
+**Collaborators:** Nicco Ryan, Bryant Davis
+**Date:** July 20, 2020
 
 ## Lab 12
-<br /><br />**Date:** July 21, 2020
+**Date:** July 21, 2020
 
 ## Lab 13
-<br /><br />**Date:** July 22, 2020
+**Date:** July 22, 2020
 
 ### Architecture Pattern
 This program is designed to manipulate data between a database and a client via a web connection.
