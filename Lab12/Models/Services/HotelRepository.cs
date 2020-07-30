@@ -12,7 +12,7 @@ namespace AsyncInn.Models.Services
 {
     public class HotelRepository : IHotel
     {
-        private AsyncInnDbContext _context;
+        readonly private AsyncInnDbContext _context;
         
         public HotelRepository(AsyncInnDbContext context)
         {

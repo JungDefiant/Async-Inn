@@ -29,5 +29,7 @@ namespace AsyncInn.Models
         [Required]
         [Display(Name = "Contact (Phone): ")]
         public string PhoneNumber { get; set; }
+
+        public ICollection<HotelRoom> HotelRooms { get; set; }
     }
 }

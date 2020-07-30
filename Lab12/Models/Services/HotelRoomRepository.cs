@@ -10,7 +10,7 @@ namespace AsyncInn.Models.Services
 {
     public class HotelRoomRepository : IHotelRoom
     {
-        private AsyncInnDbContext _context;
+        readonly private AsyncInnDbContext _context;
 
         public HotelRoomRepository(AsyncInnDbContext context)
         {
@@ -34,7 +34,7 @@ namespace AsyncInn.Models.Services
 
         public async Task<HotelRoom> GetRoom(int roomNumber, int hotelID)
         {
-            HotelRoom room = await _context.Rooms.Where(x => x.RoomNumber == roomNumber && x.HotelID == hotelID)
+            HotelRoom room = await _context.HotelRooms.Where(x => x.RoomNumber == roomNumber && x.HotelID == hotelID)
                                                  .Include(x => x.Hotel)
                                                  .Include(x => x.Layout)
                                                  .ThenInclude(x => x.RoomAmenities)
@@ -46,7 +46,7 @@ namespace AsyncInn.Models.Services
 
         public async Task<List<HotelRoom>> GetRooms(int hotelID)
         {
-            var rooms = await _context.Rooms.Where(x => x.HotelID == hotelID)
+            var rooms = await _context.HotelRooms.Where(x => x.HotelID == hotelID)
                                             .Include(x => x.Layout)
                                             .ToListAsync();
 

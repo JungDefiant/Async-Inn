@@ -6,6 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200730202407_Lab14.cs" />
+    <Compile Remove="Migrations\20200730202407_Lab14.Designer.cs" />
+    <Compile Remove="Migrations\20200730205542_Lab14.cs" />
+    <Compile Remove="Migrations\20200730205542_Lab14.Designer.cs" />
+    <Compile Remove="Migrations\20200730205836_Lab14.cs" />
+    <Compile Remove="Migrations\20200730205836_Lab14.Designer.cs" />
+    <Compile Remove="Migrations\20200730212142_Lab14.cs" />
+    <Compile Remove="Migrations\20200730212142_Lab14.Designer.cs" />
+    <Compile Remove="Migrations\20200730212435_Lab14.cs" />
+    <Compile Remove="Migrations\20200730212435_Lab14.Designer.cs" />
+    <Compile Remove="Migrations\20200730212824_databaseReset.cs" />
+    <Compile Remove="Migrations\20200730212824_databaseReset.Designer.cs" />
+    <Compile Remove="Migrations\20200730224904_AddLayoutsRooms.cs" />
+    <Compile Remove="Migrations\20200730224904_AddLayoutsRooms.Designer.cs" />
+    <Compile Remove="Migrations\20200730230250_AddLayoutsRooms.cs" />
+    <Compile Remove="Migrations\20200730230250_AddLayoutsRooms.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />

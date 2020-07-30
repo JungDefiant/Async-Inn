@@ -25,7 +25,7 @@ namespace AsyncInn.Models
 
     public enum Layout
     {
-        Small,
+        Small = 1,
         Medium,
         Large
     }

@@ -10,7 +10,7 @@ namespace AsyncInn.Models.Services
 {
     public class LayoutRepository : ILayout
     {
-        private AsyncInnDbContext _context;
+        readonly private AsyncInnDbContext _context;
 
         public LayoutRepository(AsyncInnDbContext context)
         {
@@ -34,13 +34,16 @@ namespace AsyncInn.Models.Services
 
         public async Task<RoomLayout> GetLayout(int id)
         {
-            RoomLayout layout = await _context.RoomLayouts.FindAsync(id);
+            RoomLayout layout = await _context.RoomLayouts.Where(x => x.ID == id)
+                                                          .Include(x => x.RoomAmenities)
+                                                          .FirstOrDefaultAsync();
             return layout;
         }
 
         public async Task<List<RoomLayout>> GetLayouts()
         {
-            var layouts = await _context.RoomLayouts.ToListAsync();
+            var layouts = await _context.RoomLayouts.Include(x => x.RoomAmenities)
+                                                    .ToListAsync();
             return layouts;
         }
 

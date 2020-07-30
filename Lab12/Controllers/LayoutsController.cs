@@ -60,7 +60,6 @@ namespace AsyncInn.Controllers
         public async Task<ActionResult<RoomLayout>> PostLayout(RoomLayout layout)
         {
             await _layout.Create(layout);
-
             return CreatedAtAction("GetLayout", new { id = layout.ID }, layout);
         }
 

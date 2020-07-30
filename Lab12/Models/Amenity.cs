@@ -13,5 +13,7 @@ namespace AsyncInn.Models
         [Required]
         [Display(Name = "Amenity Name: ")]
         public string Name { get; set; }
+
+        public ICollection<RoomAmenities> RoomAmenities { get; set; }
     }
 }
