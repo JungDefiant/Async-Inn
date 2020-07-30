@@ -13,11 +13,11 @@ namespace AsyncInn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomLayoutsController : ControllerBase
+    public class LayoutsController : ControllerBase
     {
         private readonly ILayout _layout;
 
-        public RoomLayoutsController(ILayout layout)
+        public LayoutsController(ILayout layout)
         {
             _layout = layout;
         }

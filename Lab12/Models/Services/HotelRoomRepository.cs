@@ -17,30 +17,39 @@ namespace AsyncInn.Models.Services
             _context = context;
         }
 
-        public async Task<HotelRoom> Create(HotelRoom room)
+        public async Task<HotelRoom> Create(HotelRoom room, int hotelID)
         {
             _context.Entry(room).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
             return room;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(int roomNumber, int hotelID)
         {
-            HotelRoom room = await GetRoom(id);
+            HotelRoom room = await GetRoom(roomNumber, hotelID);
 
             _context.Entry(room).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<HotelRoom> GetRoom(int id)
+        public async Task<HotelRoom> GetRoom(int roomNumber, int hotelID)
         {
-            HotelRoom room = await _context.Rooms.FindAsync(id);
+            HotelRoom room = await _context.Rooms.Where(x => x.RoomNumber == roomNumber && x.HotelID == hotelID)
+                                                 .Include(x => x.Hotel)
+                                                 .Include(x => x.Layout)
+                                                 .ThenInclude(x => x.RoomAmenities)
+                                                 .ThenInclude(x => x.Amenity)
+                                                 .FirstOrDefaultAsync();
+
             return room;
         }
 
-        public async Task<List<HotelRoom>> GetRooms()
+        public async Task<List<HotelRoom>> GetRooms(int hotelID)
         {
-            var rooms = await _context.Rooms.ToListAsync();
+            var rooms = await _context.Rooms.Where(x => x.HotelID == hotelID)
+                                            .Include(x => x.Layout)
+                                            .ToListAsync();
+
             return rooms;
         }
 
@@ -51,23 +60,5 @@ namespace AsyncInn.Models.Services
             return room;
         }
 
-        public async Task AddAmenityToRoom(int layoutID, int amenityID)
-        {
-            RoomAmenities amenity = new RoomAmenities()
-            {
-                LayoutID = layoutID,
-                AmenityID = amenityID
-            };
-
-            _context.Entry(amenity).State = EntityState.Added;
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task RemoveAmenityFromRoom(int layoutID, int amenityID)
-        {
-            var result = await _context.RoomAmenities.FirstOrDefaultAsync(x => x.LayoutID == layoutID && x.AmenityID == amenityID);
-            _context.Entry(result).State = EntityState.Deleted;
-            await _context.SaveChangesAsync();
-        }
     }
 }

@@ -34,7 +34,7 @@ namespace AsyncInn.Models.Services
 
         public async Task<Amenity> GetAmenity(int id)
         {
-            Amenity amenity = await _context.Amenities.FindAsync(id);
+            var amenity = await _context.Amenities.FindAsync(id);
             return amenity;
         }
 
