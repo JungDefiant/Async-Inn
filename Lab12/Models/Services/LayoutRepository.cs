@@ -36,6 +36,7 @@ namespace AsyncInn.Models.Services
         {
             RoomLayout layout = await _context.RoomLayouts.Where(x => x.ID == id)
                                                           .Include(x => x.RoomAmenities)
+                                                          .ThenInclude(x => x.Amenity)
                                                           .FirstOrDefaultAsync();
             return layout;
         }
@@ -43,6 +44,7 @@ namespace AsyncInn.Models.Services
         public async Task<List<RoomLayout>> GetLayouts()
         {
             var layouts = await _context.RoomLayouts.Include(x => x.RoomAmenities)
+                                                    .ThenInclude(x => x.Amenity)
                                                     .ToListAsync();
             return layouts;
         }

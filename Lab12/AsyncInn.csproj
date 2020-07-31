@@ -22,9 +22,14 @@
     <Compile Remove="Migrations\20200730224904_AddLayoutsRooms.Designer.cs" />
     <Compile Remove="Migrations\20200730230250_AddLayoutsRooms.cs" />
     <Compile Remove="Migrations\20200730230250_AddLayoutsRooms.Designer.cs" />
+    <Compile Remove="Migrations\20200731155807_UpdatedEntityProperties.cs" />
+    <Compile Remove="Migrations\20200731155807_UpdatedEntityProperties.Designer.cs" />
+    <Compile Remove="Migrations\20200731160514_ChangesToHotelAndHotelRoom.cs" />
+    <Compile Remove="Migrations\20200731160514_ChangesToHotelAndHotelRoom.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />

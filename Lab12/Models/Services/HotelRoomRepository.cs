@@ -48,6 +48,8 @@ namespace AsyncInn.Models.Services
         {
             var rooms = await _context.HotelRooms.Where(x => x.HotelID == hotelID)
                                             .Include(x => x.Layout)
+                                            .ThenInclude(x => x.RoomAmenities)
+                                            .ThenInclude(x => x.Amenity)
                                             .ToListAsync();
 
             return rooms;

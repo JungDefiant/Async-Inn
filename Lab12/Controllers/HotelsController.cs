@@ -63,6 +63,20 @@ namespace AsyncInn.Controllers
             return CreatedAtAction("GetHotel", new { id = hotel.ID }, hotel);
         }
 
+        [HttpPost("{hotelID}/{layoutID}")]
+        public async Task<IActionResult> AddAmenityToLayout(int hotelID, int layoutID)
+        {
+            await _hotel.AddRoom(hotelID, layoutID);
+            return Ok();
+        }
+
+        [HttpDelete("{hotelID}/{layoutID}")]
+        public async Task<IActionResult> RemoveAmenityFromLayout(int hotelID, int layoutID)
+        {
+            await _hotel.RemoveRoom(hotelID, layoutID);
+            return NoContent();
+        }
+
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hotel>> DeleteHotel(int id)

@@ -24,7 +24,9 @@ namespace AsyncInn.Models.Services
             HotelRoom room = new HotelRoom()
             {
                 HotelID = hotelID,
-                LayoutID = layoutID
+                LayoutID = layoutID,
+                RoomNumber = 100 + hotelID,
+                Price = 80.00m + (20.00m * layoutID)
             };
 
             _context.Entry(room).State = EntityState.Added;
@@ -58,9 +60,11 @@ namespace AsyncInn.Models.Services
             return hotels;
         }
 
-        public Task RemoveRoom(int hotelID, int layoutID)
+        public async Task RemoveRoom(int hotelID, int layoutID)
         {
-            throw new NotImplementedException();
+            var result = await _context.HotelRooms.FirstOrDefaultAsync(x => x.HotelID == hotelID && x.LayoutID == layoutID);
+            _context.Entry(result).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Hotel> Update(Hotel hotel)

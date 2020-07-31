@@ -55,17 +55,28 @@ namespace AsyncInn.Controllers
         // POST: api/RoomLayouts
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        [Route("{layoutId}/Amenity/{amenityId}")]
+        [HttpPost("{id}")]
         public async Task<ActionResult<RoomLayout>> PostLayout(RoomLayout layout)
         {
             await _layout.Create(layout);
             return CreatedAtAction("GetLayout", new { id = layout.ID }, layout);
         }
 
+        [HttpPost("{layoutID}/{amenityID}")]
+        public async Task<IActionResult> AddAmenityToLayout(int layoutID, int amenityID)
+        {
+            await _layout.AddAmenityToRoom(layoutID, amenityID);
+            return Ok();
+        }
+
+        [HttpDelete("{layoutID}/{amenityID}")]
+        public async Task<IActionResult> RemoveAmenityFromLayout(int layoutID, int amenityID)
+        {
+            await _layout.RemoveAmenityFromRoom(layoutID, amenityID);
+            return NoContent();
+        }
+
         // DELETE: api/RoomLayouts/5
-        [HttpDelete("{id}")]
-        [Route("{layoutId}/Amenity/{amenityId}")]
         public async Task<ActionResult<RoomLayout>> DeleteLayout(int id)
         {
             await _layout.Delete(id);
