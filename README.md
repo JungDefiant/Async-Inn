@@ -25,6 +25,9 @@ This program is designed to manipulate data between a database and a client via 
 ### Route Examples
 Different routes return specific data objects.
 
+**Get "Hotel/{id}/HotelRooms"** will get all hotel rooms that are associated with that specific hotel ID.
+**Post "Hotel/{hotelID}/{layoutID}** will add a new hotel room for the specific hotel ID with the specific layout ID.
+
 ### Description
 [Click here to view description of Database content!](https://github.com/JungDefiant/Async-Inn/blob/master/Lab11%20ERD%20Descriptions.pdf)
 
