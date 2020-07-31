@@ -25,10 +25,10 @@ This program is designed to manipulate data between a database and a client via 
 ### Route Examples
 Different routes return specific data objects.
 
-**Post "Hotel/{hotelID}/{layoutID}** will add a new hotel room for the specific hotel ID with the specific layout ID.
-**Post "RoomLayouts/{layoutID}/{amenityID}** will add a new Amenity to a specific room layout.
+- **Post "Hotel/{hotelID}/{layoutID}** will add a new hotel room for the specific hotel ID with the specific layout ID.
+- **Post "RoomLayouts/{layoutID}/{amenityID}** will add a new Amenity to a specific room layout.
 
-**Get "Hotel/{id}/HotelRooms"** will get all hotel rooms that are associated with that specific hotel ID, as well as information about those hotel rooms.
+- **Get "Hotel/{id}/HotelRooms"** will get all hotel rooms that are associated with that specific hotel ID, as well as information about those hotel rooms.
 ```
 [
     {
@@ -79,7 +79,7 @@ Different routes return specific data objects.
 ]
 ```
 
-**Get "RoomLayouts/{id}"** will return the specific room layout and all amenities associated with it.
+- **Get "RoomLayouts/{id}"** will return the specific room layout and all amenities associated with it.
 ```
 {
     "id": 1,
