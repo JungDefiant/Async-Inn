@@ -25,8 +25,88 @@ This program is designed to manipulate data between a database and a client via 
 ### Route Examples
 Different routes return specific data objects.
 
-**Get "Hotel/{id}/HotelRooms"** will get all hotel rooms that are associated with that specific hotel ID.
 **Post "Hotel/{hotelID}/{layoutID}** will add a new hotel room for the specific hotel ID with the specific layout ID.
+**Post "RoomLayouts/{layoutID}/{amenityID}** will add a new Amenity to a specific room layout.
+
+**Get "Hotel/{id}/HotelRooms"** will get all hotel rooms that are associated with that specific hotel ID, as well as information about those hotel rooms.
+```
+[
+    {
+        "hotelID": 1,
+        "layoutID": 1,
+        "hotel": null,
+        "layout": {
+            "id": 1,
+            "name": "Deluxe",
+            "layout": 3,
+            "roomAmenities": [
+                {
+                    "layoutID": 1,
+                    "amenityID": 1,
+                    "amenity": {
+                        "id": 1,
+                        "name": "Guy holding a coffee pot in the corner of the room",
+                        "roomAmenities": []
+                    }
+                },
+                {
+                    "layoutID": 1,
+                    "amenityID": 2,
+                    "amenity": {
+                        "id": 2,
+                        "name": "Mentos Dispenser",
+                        "roomAmenities": []
+                    }
+                }
+            ]
+        },
+        "price": 0.00,
+        "roomNumber": 0
+    },
+    {
+        "hotelID": 1,
+        "layoutID": 2,
+        "hotel": null,
+        "layout": {
+            "id": 2,
+            "name": "Business",
+            "layout": 1,
+            "roomAmenities": []
+        },
+        "price": 120.00,
+        "roomNumber": 101
+    }
+]
+```
+
+**Get "RoomLayouts/{id}"** will return the specific room layout and all amenities associated with it.
+```
+{
+    "id": 1,
+    "name": "Deluxe",
+    "layout": 3,
+    "roomAmenities": [
+        {
+            "layoutID": 1,
+            "amenityID": 1,
+            "amenity": {
+                "id": 1,
+                "name": "Guy holding a coffee pot in the corner of the room",
+                "roomAmenities": []
+            }
+        },
+        {
+            "layoutID": 1,
+            "amenityID": 2,
+            "amenity": {
+                "id": 2,
+                "name": "Mentos Dispenser",
+                "roomAmenities": []
+            }
+        }
+    ]
+}
+```
 
 ### Description
 [Click here to view description of Database content!](https://github.com/JungDefiant/Async-Inn/blob/master/Lab11%20ERD%20Descriptions.pdf)
