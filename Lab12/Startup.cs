@@ -30,7 +30,9 @@ namespace AsyncInn
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
 
             services.AddDbContext<AsyncInnDbContext>(options => 
             {
@@ -40,6 +42,7 @@ namespace AsyncInn
             services.AddTransient<IHotel, HotelRepository>();
             services.AddTransient<ILayout, LayoutRepository>();
             services.AddTransient<IAmenity, AmenityRepository>();
+            services.AddTransient<IHotelRoom, HotelRoomRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,7 +10,7 @@ namespace AsyncInn.Models.Services
 {
     public class AmenityRepository : IAmenity
     {
-        private AsyncInnDbContext _context;
+        readonly private AsyncInnDbContext _context;
 
         public AmenityRepository(AsyncInnDbContext context)
         {
@@ -34,13 +34,16 @@ namespace AsyncInn.Models.Services
 
         public async Task<Amenity> GetAmenity(int id)
         {
-            Amenity amenity = await _context.Amenities.FindAsync(id);
+            var amenity = await _context.Amenities.Where(x => x.ID == id)
+                                                  .Include(x => x.RoomAmenities)
+                                                  .FirstOrDefaultAsync();
             return amenity;
         }
 
         public async Task<List<Amenity>> GetAmenities()
         {
-            var amenities = await _context.Amenities.ToListAsync();
+            var amenities = await _context.Amenities.Include(x => x.RoomAmenities)
+                                                    .ToListAsync();
             return amenities;
         }
 

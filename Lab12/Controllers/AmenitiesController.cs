@@ -11,7 +11,7 @@ using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Amenities")]
     [ApiController]
     public class AmenitiesController : ControllerBase
     {

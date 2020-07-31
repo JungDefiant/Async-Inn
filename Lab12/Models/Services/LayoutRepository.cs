@@ -10,7 +10,7 @@ namespace AsyncInn.Models.Services
 {
     public class LayoutRepository : ILayout
     {
-        private AsyncInnDbContext _context;
+        readonly private AsyncInnDbContext _context;
 
         public LayoutRepository(AsyncInnDbContext context)
         {
@@ -34,13 +34,18 @@ namespace AsyncInn.Models.Services
 
         public async Task<RoomLayout> GetLayout(int id)
         {
-            RoomLayout layout = await _context.RoomLayouts.FindAsync(id);
+            RoomLayout layout = await _context.RoomLayouts.Where(x => x.ID == id)
+                                                          .Include(x => x.RoomAmenities)
+                                                          .ThenInclude(x => x.Amenity)
+                                                          .FirstOrDefaultAsync();
             return layout;
         }
 
         public async Task<List<RoomLayout>> GetLayouts()
         {
-            var layouts = await _context.RoomLayouts.ToListAsync();
+            var layouts = await _context.RoomLayouts.Include(x => x.RoomAmenities)
+                                                    .ThenInclude(x => x.Amenity)
+                                                    .ToListAsync();
             return layouts;
         }
 
@@ -49,6 +54,25 @@ namespace AsyncInn.Models.Services
             _context.Entry(layout).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
             return layout;
+        }
+
+        public async Task AddAmenityToRoom(int layoutID, int amenityID)
+        {
+            RoomAmenities amenity = new RoomAmenities()
+            {
+                LayoutID = layoutID,
+                AmenityID = amenityID
+            };
+
+            _context.Entry(amenity).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAmenityFromRoom(int layoutID, int amenityID)
+        {
+            var result = await _context.RoomAmenities.FirstOrDefaultAsync(x => x.LayoutID == layoutID && x.AmenityID == amenityID);
+            _context.Entry(result).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
         }
     }
 }
