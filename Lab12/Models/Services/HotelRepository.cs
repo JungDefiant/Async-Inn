@@ -50,13 +50,25 @@ namespace AsyncInn.Models.Services
 
         public async Task<Hotel> GetHotel(int id)
         {
-            Hotel hotel = await _context.Hotels.FindAsync(id);
+            Hotel hotel = await _context.Hotels.Where(x => x.ID == id)
+                                               .Include(x => x.HotelRooms)
+                                               .ThenInclude(x => x.Layout)
+                                               .ThenInclude(x => 
+                                                x.RoomAmenities)
+                                               .ThenInclude(x => 
+                                                x.Amenity)
+                                               .FirstOrDefaultAsync();
             return hotel;
         }
 
         public async Task<List<Hotel>> GetHotels()
         {
-            var hotels = await _context.Hotels.ToListAsync();
+            var hotels = await _context.Hotels.Include(x => x.HotelRooms)
+                                               .ThenInclude(x => x.Layout)
+                                               .ThenInclude(x => x.RoomAmenities)
+                                               .ThenInclude(x => x.Amenity)
+                
+                                               .ToListAsync();
             return hotels;
         }
 
