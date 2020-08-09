@@ -14,6 +14,9 @@
 ## Lab 14
 **Date:** July 23, 2020
 
+## Lab 17
+**Date:** August 8, 2020
+
 ### Architecture Pattern
 This program is designed to manipulate data between a database and a client via a web connection.
 
@@ -107,6 +110,9 @@ Different routes return specific data objects.
     ]
 }
 ```
+
+### Identities
+ASP.NET Identities are how ASP.NET framework handles memberships. An Identity is simply how a user is represented in a web app and what they are able to do within that app. The Identity system has several benefits including customizable databases, compatibility across all ASP.NET technologies, detailed claims-based membership, and compatibility with social logins from popular social media sites. 
 
 ### Description
 [Click here to view description of Database content!](https://github.com/JungDefiant/Async-Inn/blob/master/Lab11%20ERD%20Descriptions.pdf)
