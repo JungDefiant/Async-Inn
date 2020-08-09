@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AsyncInn.Data;
 using Microsoft.EntityFrameworkCore;
+using AsyncInn.Models.DTOs;
 
 namespace AsyncInn.Models.Services
 {
@@ -17,43 +18,60 @@ namespace AsyncInn.Models.Services
             _context = context;
         }
 
-        public async Task<RoomLayout> Create(RoomLayout layout)
+        public async Task<LayoutDTO> Create(LayoutDTO layoutDTO)
         {
-            _context.Entry(layout).State = Microsoft.EntityFrameworkCore.EntityState.Added;
+            _context.Entry(layoutDTO).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
-            return layout;
+            return layoutDTO;
         }
 
         public async Task Delete(int id)
         {
-            RoomLayout layout = await GetLayout(id);
+            LayoutDTO layout = await GetLayout(id);
 
             _context.Entry(layout).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<RoomLayout> GetLayout(int id)
+        public async Task<LayoutDTO> GetLayout(int id)
         {
-            RoomLayout layout = await _context.RoomLayouts.Where(x => x.ID == id)
+            var layout = await _context.RoomLayouts.Where(x => x.ID == id)
                                                           .Include(x => x.RoomAmenities)
                                                           .ThenInclude(x => x.Amenity)
                                                           .FirstOrDefaultAsync();
-            return layout;
+
+            LayoutDTO layoutDTO = new LayoutDTO()
+            {
+                ID = layout.ID,
+                Name = layout.Name,
+                Layout = layout.Layout,
+                RoomAmenities = (List<RoomAmenities>)layout.RoomAmenities
+            };
+
+            return layoutDTO;
         }
 
-        public async Task<List<RoomLayout>> GetLayouts()
+        public async Task<List<LayoutDTO>> GetLayouts()
         {
             var layouts = await _context.RoomLayouts.Include(x => x.RoomAmenities)
                                                     .ThenInclude(x => x.Amenity)
                                                     .ToListAsync();
-            return layouts;
+
+            List<LayoutDTO> layoutDTOs = new List<LayoutDTO>();
+
+            foreach (var layout in layouts)
+            {
+                layoutDTOs.Add(await GetLayout(layout.ID));
+            }
+
+            return layoutDTOs;
         }
 
-        public async Task<RoomLayout> Update(RoomLayout layout)
+        public async Task<LayoutDTO> Update(LayoutDTO layoutDTO)
         {
-            _context.Entry(layout).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(layoutDTO).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
-            return layout;
+            return layoutDTO;
         }
 
         public async Task AddAmenityToRoom(int layoutID, int amenityID)

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AsyncInn.Models
+namespace AsyncInn.Models.DTOs
 {
-    public class Amenity
+    public class LayoutDTO
     {
         public int ID { get; set; }
-
-        [Required]
-        [Display(Name = "Amenity Name: ")]
         public string Name { get; set; }
-
+        public Layout Layout { get; set; }
         public List<RoomAmenities> RoomAmenities { get; set; }
     }
 }

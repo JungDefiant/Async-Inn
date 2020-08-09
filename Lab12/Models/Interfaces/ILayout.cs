@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncInn.Models.DTOs;
 
 namespace AsyncInn.Models.Interfaces
 {
     public interface ILayout
     {
-        Task<RoomLayout> Create(RoomLayout layout);
+        Task<LayoutDTO> Create(LayoutDTO layout);
 
-        Task<List<RoomLayout>> GetLayouts();
+        Task<List<LayoutDTO>> GetLayouts();
 
-        Task<RoomLayout> GetLayout(int id);
+        Task<LayoutDTO> GetLayout(int id);
 
-        Task<RoomLayout> Update(RoomLayout layout);
+        Task<LayoutDTO> Update(LayoutDTO layout);
 
         Task Delete(int id);
 

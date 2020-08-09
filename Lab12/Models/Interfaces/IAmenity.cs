@@ -2,19 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncInn.Models.DTOs;
 
 namespace AsyncInn.Models.Interfaces
 {
     public interface IAmenity
     {
-        Task<Amenity> Create(Amenity amenity);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amenity"></param>
+        /// <returns></returns>
+        Task<AmenityDTO> Create(AmenityDTO amenity);
 
-        Task<List<Amenity>> GetAmenities();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<List<AmenityDTO>> GetAmenities();
 
-        Task<Amenity> GetAmenity(int id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<AmenityDTO> GetAmenity(int id);
 
-        Task<Amenity> Update(Amenity amenity);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amenity"></param>
+        /// <returns></returns>
+        Task<AmenityDTO> Update(AmenityDTO amenity);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Task Delete(int id);
     }
 }
