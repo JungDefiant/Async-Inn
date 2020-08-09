@@ -9,6 +9,7 @@ using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
 using AsyncInn.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AsyncInn.Controllers
 {
@@ -25,6 +26,7 @@ namespace AsyncInn.Controllers
 
         // GET: api/Hotels
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
             return await _hotel.GetHotels();
@@ -32,6 +34,7 @@ namespace AsyncInn.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelDTO>> GetHotel(int id)
         {
             var hotel = await _hotel.GetHotel(id);
@@ -42,6 +45,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutHotel(int id, HotelDTO hotel)
         {
             if (id != hotel.ID)
@@ -57,6 +61,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelDTO>> PostHotel(HotelDTO hotel)
         {
             await _hotel.Create(hotel);
@@ -65,6 +70,7 @@ namespace AsyncInn.Controllers
         }
 
         [HttpPost("{hotelID}/{layoutID}")]
+        [AllowAnonymous]
         public async Task<IActionResult> AddRoomToHotel(int hotelID, int layoutID, decimal price)
         {
             await _hotel.AddRoom(hotelID, layoutID, price);
@@ -72,6 +78,7 @@ namespace AsyncInn.Controllers
         }
 
         [HttpDelete("{hotelID}/{layoutID}")]
+        [AllowAnonymous]
         public async Task<IActionResult> RemoveRoomFromHotel(int hotelID, int layoutID)
         {
             await _hotel.RemoveRoom(hotelID, layoutID);
@@ -79,6 +86,7 @@ namespace AsyncInn.Controllers
         }
 
         [HttpDelete("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelDTO>> DeleteHotel(int id)
         {
             await _hotel.Delete(id);

@@ -9,6 +9,7 @@ using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
 using AsyncInn.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AsyncInn.Controllers
 {
@@ -25,6 +26,7 @@ namespace AsyncInn.Controllers
 
         // GET: api/HotelRooms
         [HttpGet("/api/Hotels/{hotelId}/HotelRooms")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetRooms(int hotelID)
         {
             return await _context.GetRooms(hotelID);
@@ -32,6 +34,7 @@ namespace AsyncInn.Controllers
 
         // GET: api/HotelRooms/5
         [HttpGet("/api/Hotels/{hotelId}/HotelRooms/{roomNumber}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelRoomDTO>> GetHotelRoom(int roomNumber, int hotelID)
         {
             var hotelRoom = await _context.GetRoom(roomNumber, hotelID);
@@ -48,6 +51,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("/api/Hotels/{hotelId}/HotelRooms/{roomNumber}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutHotelRoom(int hotelID, int roomNumber, HotelRoomDTO hotelRoom)
         {
             if (hotelID != hotelRoom.HotelID || roomNumber != hotelRoom.RoomNumber)
@@ -64,6 +68,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("/api/Hotels/{hotelId}/HotelRooms")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelRoomDTO>> PostHotelRoom(HotelRoomDTO hotelRoom, int hotelID)
         {
             await _context.Create(hotelRoom, hotelID);
@@ -73,6 +78,7 @@ namespace AsyncInn.Controllers
 
         // DELETE: api/HotelRooms/5
         [HttpDelete("/api/Hotels/{hotelId}/HotelRooms/{roomNumber}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HotelRoomDTO>> DeleteHotelRoom(int roomNumber, int hotelID)
         {
             await _context.Delete(roomNumber, hotelID);

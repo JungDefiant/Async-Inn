@@ -19,7 +19,7 @@ namespace AsyncInn.Models
         [EnumDataType(typeof(Layout))]
         public Layout Layout { get; set; }
 
-        public ICollection<RoomAmenities> RoomAmenities { get; set; }
+        public List<RoomAmenities> RoomAmenities { get; set; }
     }
 
     public enum Layout

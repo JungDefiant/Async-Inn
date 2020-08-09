@@ -30,6 +30,6 @@ namespace AsyncInn.Models
         [Display(Name = "Contact (Phone): ")]
         public string PhoneNumber { get; set; }
 
-        public ICollection<HotelRoom> HotelRooms { get; set; }
+        public List<HotelRoom> HotelRooms { get; set; }
     }
 }
