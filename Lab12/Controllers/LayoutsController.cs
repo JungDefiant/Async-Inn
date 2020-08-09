@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
 using AsyncInn.Models.Interfaces;
+using AsyncInn.Models.DTOs;
 
 namespace AsyncInn.Controllers
 {
@@ -24,14 +25,14 @@ namespace AsyncInn.Controllers
 
         // GET: api/RoomLayouts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomLayoutDTO>>> GetLayouts()
+        public async Task<ActionResult<IEnumerable<LayoutDTO>>> GetLayouts()
         {
             return await _layout.GetLayouts();
         }
 
         // GET: api/RoomLayouts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoomLayoutDTO>> GetLayout(int id)
+        public async Task<ActionResult<LayoutDTO>> GetLayout(int id)
         {
             var layout = await _layout.GetLayout(id);
             return layout;
@@ -41,7 +42,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLayout(int id, RoomLayoutDTO layout)
+        public async Task<IActionResult> PutLayout(int id, LayoutDTO layout)
         {
             if (id != layout.ID)
             {
@@ -56,7 +57,7 @@ namespace AsyncInn.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("{id}")]
-        public async Task<ActionResult<RoomLayoutDTO>> PostLayout(RoomLayoutDTO layout)
+        public async Task<ActionResult<LayoutDTO>> PostLayout(LayoutDTO layout)
         {
             await _layout.Create(layout);
             return CreatedAtAction("GetLayout", new { id = layout.ID }, layout);
@@ -76,8 +77,8 @@ namespace AsyncInn.Controllers
             return NoContent();
         }
 
-        // DELETE: api/RoomLayouts/5
-        public async Task<ActionResult<RoomLayoutDTO>> DeleteLayout(int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<LayoutDTO>> DeleteLayout(int id)
         {
             await _layout.Delete(id);
             return NoContent();

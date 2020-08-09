@@ -19,14 +19,13 @@ namespace AsyncInn.Models.Services
             _context = context;
         }
 
-        public async Task AddRoom(int hotelID, int layoutID)
+        public async Task AddRoom(int hotelID, int roomNumber, decimal price)
         {
             HotelRoom room = new HotelRoom()
             {
                 HotelID = hotelID,
-                LayoutID = layoutID,
-                RoomNumber = 100 + hotelID,
-                Price = 80.00m + (20.00m * layoutID)
+                RoomNumber = roomNumber,
+                Price = price
             };
 
             _context.Entry(room).State = EntityState.Added;
@@ -72,9 +71,9 @@ namespace AsyncInn.Models.Services
             return hotels;
         }
 
-        public async Task RemoveRoom(int hotelID, int layoutID)
+        public async Task RemoveRoom(int hotelID, int roomNumber)
         {
-            var result = await _context.HotelRooms.FirstOrDefaultAsync(x => x.HotelID == hotelID && x.LayoutID == layoutID);
+            var result = await _context.HotelRooms.FirstOrDefaultAsync(x => x.HotelID == hotelID && x.RoomNumber == roomNumber);
             _context.Entry(result).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }

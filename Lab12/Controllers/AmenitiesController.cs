@@ -24,7 +24,7 @@ namespace AsyncInn.Controllers
         }
 
         // GET: api/Amenities
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<AmenityDTO>>> GetAmenities()
         {
             return await _amenity.GetAmenities();
@@ -56,7 +56,7 @@ namespace AsyncInn.Controllers
         // POST: api/Amenities
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+        [HttpPost("{id}")]
         public async Task<ActionResult<AmenityDTO>> PostAmenity(AmenityDTO amenity)
         {
             await _amenity.Create(amenity);
