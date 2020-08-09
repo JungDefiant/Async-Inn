@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using AsyncInn.Models;
 using AsyncInn.Models.Services;
 using AsyncInn.Models.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace AsyncInn
 {
@@ -38,6 +39,10 @@ namespace AsyncInn
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AsyncInnDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddTransient<IHotel, HotelRepository>();
             services.AddTransient<ILayout, LayoutRepository>();

@@ -24,7 +24,7 @@ namespace AsyncInn.Controllers
         }
 
         // GET: api/Hotels
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
             return await _hotel.GetHotels();
@@ -65,9 +65,9 @@ namespace AsyncInn.Controllers
         }
 
         [HttpPost("{hotelID}/{layoutID}")]
-        public async Task<IActionResult> AddRoomToHotel(int hotelID, int layoutID)
+        public async Task<IActionResult> AddRoomToHotel(int hotelID, int layoutID, decimal price)
         {
-            await _hotel.AddRoom(hotelID, layoutID);
+            await _hotel.AddRoom(hotelID, layoutID, price);
             return Ok();
         }
 
@@ -78,7 +78,6 @@ namespace AsyncInn.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<HotelDTO>> DeleteHotel(int id)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AsyncInn.Models.DTOs;
 
 namespace AsyncInn.Models.Interfaces
 {
@@ -12,27 +13,27 @@ namespace AsyncInn.Models.Interfaces
         /// </summary>
         /// <param name="amenity"></param>
         /// <returns></returns>
-        Task<Amenity> Create(Amenity amenity);
+        Task<AmenityDTO> Create(AmenityDTO amenity);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        Task<List<Amenity>> GetAmenities();
+        Task<List<AmenityDTO>> GetAmenities();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Amenity> GetAmenity(int id);
+        Task<AmenityDTO> GetAmenity(int id);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="amenity"></param>
         /// <returns></returns>
-        Task<Amenity> Update(Amenity amenity);
+        Task<AmenityDTO> Update(AmenityDTO amenity);
 
         /// <summary>
         /// 

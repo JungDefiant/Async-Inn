@@ -10,7 +10,7 @@ namespace AsyncInn.Models.DTOs
         public int HotelID { get; set; }
         public int LayoutID { get; set; }
         public Hotel Hotel { get; set; }
-        public Layout Layout { get; set; }
+        public RoomLayout Layout { get; set; }
         public decimal Price { get; set; }
         public int RoomNumber { get; set; }
     }

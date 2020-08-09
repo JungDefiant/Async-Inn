@@ -1,5 +1,6 @@
 ﻿using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.DTOs;
 using AsyncInn.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,7 +33,7 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Hotel> Create(Hotel hotel)
+        public async Task<HotelDTO> Create(HotelDTO hotel)
         {
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await _context.SaveChangesAsync();
@@ -41,15 +42,15 @@ namespace AsyncInn.Models.Services
 
         public async Task Delete(int id)
         {
-            Hotel hotel = await GetHotel(id);
+            HotelDTO hotel = await GetHotel(id);
 
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Hotel> GetHotel(int id)
+        public async Task<HotelDTO> GetHotel(int id)
         {
-            Hotel hotel = await _context.Hotels.Where(x => x.ID == id)
+            var hotel = await _context.Hotels.Where(x => x.ID == id)
                                                .Include(x => x.HotelRooms)
                                                .ThenInclude(x => x.Layout)
                                                .ThenInclude(x => 
@@ -57,10 +58,23 @@ namespace AsyncInn.Models.Services
                                                .ThenInclude(x => 
                                                 x.Amenity)
                                                .FirstOrDefaultAsync();
-            return hotel;
+
+
+            HotelDTO hotelDTO = new HotelDTO()
+            {
+                ID = hotel.ID,
+                Name = hotel.Name,
+                StreetAddress = hotel.StreetAddress,
+                City = hotel.City,
+                State = hotel.State,
+                PhoneNumber = hotel.PhoneNumber,
+                HotelRooms = (List<HotelRoom>)hotel.HotelRooms
+            };
+
+            return hotelDTO;
         }
 
-        public async Task<List<Hotel>> GetHotels()
+        public async Task<List<HotelDTO>> GetHotels()
         {
             var hotels = await _context.Hotels.Include(x => x.HotelRooms)
                                                .ThenInclude(x => x.Layout)
@@ -68,7 +82,15 @@ namespace AsyncInn.Models.Services
                                                .ThenInclude(x => x.Amenity)
                 
                                                .ToListAsync();
-            return hotels;
+
+            List<HotelDTO> hotelDTOs = new List<HotelDTO>();
+
+            foreach (var hotel in hotels)
+            {
+                hotelDTOs.Add(await GetHotel(hotel.ID));
+            }
+
+            return hotelDTOs;
         }
 
         public async Task RemoveRoom(int hotelID, int roomNumber)
@@ -78,7 +100,7 @@ namespace AsyncInn.Models.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Hotel> Update(Hotel hotel)
+        public async Task<HotelDTO> Update(HotelDTO hotel)
         {
             _context.Entry(hotel).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
